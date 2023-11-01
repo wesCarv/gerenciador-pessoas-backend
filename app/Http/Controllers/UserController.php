@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+
+
+use App\Exceptions\CreateUserService;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function create(Request $request)
     {
-        return User::create($request->all());
+        $createUserService = new CreateUserService();
+        return $createUserService->execute($request->all());
     }
 
     public function index()
     {
-        $users = User::all();
-        return response()->json($users);
+        $user_teste = User::with('taxes')->get();
+        return response()->json($user_teste);
     }
 
     public function update(Request $request, $id)
@@ -36,14 +41,14 @@ class UserController extends Controller
         }
     }
 
-    public function destroy ($id){
-        if(User::where('id', $id)->exists()){
-        $user = User::find($id);
-        $user->delete();
-        return response()->json(null, 204);
-    }
-    else{
-        return response()->json("user not found", 404);
-    }
+    public function destroy($id)
+    {
+        if (User::where('id', $id)->exists()) {
+            $user = User::find($id);
+            $user->delete();
+            return response()->json(null, 204);
+        } else {
+            return response()->json("user not found", 404);
+        }
     }
 }
