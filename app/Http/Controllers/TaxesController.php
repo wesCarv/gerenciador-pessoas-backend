@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\CreateTaxesService;
+
 use Illuminate\Http\Request;
 use App\Models\Taxes;
 
@@ -10,8 +10,7 @@ class TaxesController extends Controller
 {
     public function create(Request $request)
     {
-        $createTaxesServices = new CreateTaxesService();
-        return $createTaxesServices->execute($request->all());
+        return Taxes::create($request->all());
     }
 
     public function index()

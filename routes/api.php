@@ -12,6 +12,8 @@ Route::post('/taxes', [TaxesController::class,'create']);
 Route::get('/taxes/all',[TaxesController::class,'index']);
 Route::get('/users/all', [UserController::class, 'index']);
 
+Route::get('/users/{id}', [UserController::class,'show']);
+
 Route::patch('/taxes/{id}', [TaxesController::class,'update']);
 Route::patch('/users/{id}', [UserController::class, 'update']);
 

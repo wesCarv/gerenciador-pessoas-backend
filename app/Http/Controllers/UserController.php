@@ -23,6 +23,15 @@ class UserController extends Controller
         return response()->json($user_teste);
     }
 
+    public function show ($id) {
+        $user = User::with('taxes')->find($id);
+        if(!empty($user)){
+        return response()->json($user);
+        }else{
+            return response()->json(['message'=> 'User not found'],404);
+        }
+    }
+
     public function update(Request $request, $id)
     {
         if (User::where('id', $id)->exists()) {
